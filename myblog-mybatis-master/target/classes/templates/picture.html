@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>云照片墙-南城余的杂货铺子</title>
+
+    <link href="../static/images/touxiang.jpg" th:href="@{/images/touxiang.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="../static/lib/semantic/dist/semantic.min.css" th:href="@{/lib/semantic/dist/semantic.min.css}">
+    <link rel="stylesheet" href="../static/css/ZPQme.css" th:href="@{/css/ZPQme.css}">
+    <style>
+        .banter-loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 72px;
+            height: 72px;
+            margin-left: -36px;
+            margin-top: -36px;
+        }
+
+        .banter-loader__box {
+            float: left;
+            position: relative;
+            width: 20px;
+            height: 20px;
+            margin-right: 6px;
+        }
+
+        .banter-loader__box:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        .banter-loader__box:nth-child(3n) {
+            margin-right: 0;
+            margin-bottom: 6px;
+        }
+
+        .banter-loader__box:nth-child(1):before, .banter-loader__box:nth-child(4):before {
+            margin-left: 26px;
+        }
+
+        .banter-loader__box:nth-child(3):before {
+            margin-top: 52px;
+        }
+
+        .banter-loader__box:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes moveBox-1 {
+            9.0909090909% {
+                transform: translate(-26px, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(0px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(0px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(26px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(26px, 26px);
+            }
+
+            54.5454545455% {
+                transform: translate(26px, 26px);
+            }
+
+            63.6363636364% {
+                transform: translate(26px, 26px);
+            }
+
+            72.7272727273% {
+                transform: translate(26px, 0px);
+            }
+
+            81.8181818182% {
+                transform: translate(0px, 0px);
+            }
+
+            90.9090909091% {
+                transform: translate(-26px, 0px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(1) {
+            animation: moveBox-1 4s infinite;
+        }
+
+        @keyframes moveBox-2 {
+            9.0909090909% {
+                transform: translate(0, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(0px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(26px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(26px, 26px);
+            }
+
+            54.5454545455% {
+                transform: translate(26px, 26px);
+            }
+
+            63.6363636364% {
+                transform: translate(26px, 26px);
+            }
+
+            72.7272727273% {
+                transform: translate(26px, 26px);
+            }
+
+            81.8181818182% {
+                transform: translate(0px, 26px);
+            }
+
+            90.9090909091% {
+                transform: translate(0px, 26px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(2) {
+            animation: moveBox-2 4s infinite;
+        }
+
+        @keyframes moveBox-3 {
+            9.0909090909% {
+                transform: translate(-26px, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(-26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(0px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(-26px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(-26px, 0);
+            }
+
+            54.5454545455% {
+                transform: translate(-26px, 0);
+            }
+
+            63.6363636364% {
+                transform: translate(-26px, 0);
+            }
+
+            72.7272727273% {
+                transform: translate(-26px, 0);
+            }
+
+            81.8181818182% {
+                transform: translate(-26px, -26px);
+            }
+
+            90.9090909091% {
+                transform: translate(0px, -26px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(3) {
+            animation: moveBox-3 4s infinite;
+        }
+
+        @keyframes moveBox-4 {
+            9.0909090909% {
+                transform: translate(-26px, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(-26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(-26px, -26px);
+            }
+
+            36.3636363636% {
+                transform: translate(0px, -26px);
+            }
+
+            45.4545454545% {
+                transform: translate(0px, 0px);
+            }
+
+            54.5454545455% {
+                transform: translate(0px, -26px);
+            }
+
+            63.6363636364% {
+                transform: translate(0px, -26px);
+            }
+
+            72.7272727273% {
+                transform: translate(0px, -26px);
+            }
+
+            81.8181818182% {
+                transform: translate(-26px, -26px);
+            }
+
+            90.9090909091% {
+                transform: translate(-26px, 0px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(4) {
+            animation: moveBox-4 4s infinite;
+        }
+
+        @keyframes moveBox-5 {
+            9.0909090909% {
+                transform: translate(0, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(0, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(0, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(26px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(26px, 0);
+            }
+
+            54.5454545455% {
+                transform: translate(26px, 0);
+            }
+
+            63.6363636364% {
+                transform: translate(26px, 0);
+            }
+
+            72.7272727273% {
+                transform: translate(26px, 0);
+            }
+
+            81.8181818182% {
+                transform: translate(26px, -26px);
+            }
+
+            90.9090909091% {
+                transform: translate(0px, -26px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(5) {
+            animation: moveBox-5 4s infinite;
+        }
+
+        @keyframes moveBox-6 {
+            9.0909090909% {
+                transform: translate(0, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(-26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(-26px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(0px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(0px, 0);
+            }
+
+            54.5454545455% {
+                transform: translate(0px, 0);
+            }
+
+            63.6363636364% {
+                transform: translate(0px, 0);
+            }
+
+            72.7272727273% {
+                transform: translate(0px, 26px);
+            }
+
+            81.8181818182% {
+                transform: translate(-26px, 26px);
+            }
+
+            90.9090909091% {
+                transform: translate(-26px, 0px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(6) {
+            animation: moveBox-6 4s infinite;
+        }
+
+        @keyframes moveBox-7 {
+            9.0909090909% {
+                transform: translate(26px, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(26px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(0px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(0px, -26px);
+            }
+
+            54.5454545455% {
+                transform: translate(26px, -26px);
+            }
+
+            63.6363636364% {
+                transform: translate(0px, -26px);
+            }
+
+            72.7272727273% {
+                transform: translate(0px, -26px);
+            }
+
+            81.8181818182% {
+                transform: translate(0px, 0px);
+            }
+
+            90.9090909091% {
+                transform: translate(26px, 0px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(7) {
+            animation: moveBox-7 4s infinite;
+        }
+
+        @keyframes moveBox-8 {
+            9.0909090909% {
+                transform: translate(0, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(-26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(-26px, -26px);
+            }
+
+            36.3636363636% {
+                transform: translate(0px, -26px);
+            }
+
+            45.4545454545% {
+                transform: translate(0px, -26px);
+            }
+
+            54.5454545455% {
+                transform: translate(0px, -26px);
+            }
+
+            63.6363636364% {
+                transform: translate(0px, -26px);
+            }
+
+            72.7272727273% {
+                transform: translate(0px, -26px);
+            }
+
+            81.8181818182% {
+                transform: translate(26px, -26px);
+            }
+
+            90.9090909091% {
+                transform: translate(26px, 0px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        .banter-loader__box:nth-child(8) {
+            animation: moveBox-8 4s infinite;
+        }
+
+        @keyframes moveBox-9 {
+            9.0909090909% {
+                transform: translate(-26px, 0);
+            }
+
+            18.1818181818% {
+                transform: translate(-26px, 0);
+            }
+
+            27.2727272727% {
+                transform: translate(0px, 0);
+            }
+
+            36.3636363636% {
+                transform: translate(-26px, 0);
+            }
+
+            45.4545454545% {
+                transform: translate(0px, 0);
+            }
+
+            54.5454545455% {
+                transform: translate(0px, 0);
+            }
+
+            63.6363636364% {
+                transform: translate(-26px, 0);
+            }
+
+            72.7272727273% {
+                transform: translate(-26px, 0);
+            }
+
+            81.8181818182% {
+                transform: translate(-52px, 0);
+            }
+
+            90.9090909091% {
+                transform: translate(-26px, 0);
+            }
+
+            100% {
+                transform: translate(0px, 0);
+            }
+        }
+
+        .banter-loader__box:nth-child(9) {
+            animation: moveBox-9 4s infinite;
+        }
+        /*最外层容器样式*/
+        .wrap {
+            width: 100px;
+            height: 100px;
+            margin: 150px;
+            position: relative;
+        }
+
+        /*得到立方体效果*/
+        .cube {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            /*设置动画播放样式:动画对象 播放速度 时间 播放次数*/
+            animation: rotate linear 20s infinite;
+        }
+
+        /*动画旋转的方式*/
+        /*得到动画效果*/
+        @-moz-keyframes rotate {                     /*firefox*/
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        @-webkit-keyframes rotate {                /*sofari chrome*/
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        @-o-keyframes rotate {                    /*opera*/
+            from {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            to {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        /*每张图片的样式*/
+        .cube div {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.8;
+            /*过渡效果*/
+            transition: all .4s;
+        }
+
+        /*定义所有图片样式*/
+        .pic {
+            width: 200px;
+            height: 200px;
+        }
+
+        .cube .out_front {
+            transform: rotateY(0deg) translateZ(100px);
+        }
+
+        .cube .out_back {
+            transform: translateZ(-100px) rotateY(180deg);
+        }
+
+        .cube .out_left {
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+
+        .cube .out_right {
+            transform: rotateY(90deg) translateZ(100px);
+        }
+
+        .cube .out_top {
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        .cube .out_bottom {
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+
+        /*定义小正方体样式*/
+        .cube span {
+            display: block;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+
+        .cube .in_pic {
+            width: 100px;
+            height: 100px;
+        }
+
+        .cube .in_front {
+            transform: rotateY(0deg) translateZ(50px);
+        }
+
+        .cube .in_back {
+            transform: translateZ(-50px) rotateY(180deg);
+        }
+
+        .cube .in_left {
+            transform: rotateY(-90deg) translateZ(50px);
+        }
+
+        .cube .in_right {
+            transform: rotateY(90deg) translateZ(50px);
+        }
+
+        .cube .in_top {
+            transform: rotateX(90deg) translateZ(50px);
+        }
+
+        .cube .in_bottom {
+            transform: rotateX(-90deg) translateZ(50px);
+        }
+
+        /*鼠标移入后样式*/
+        .cube:hover .out_front {
+            transform: rotateY(0deg) translateZ(200px);
+        }
+
+        .cube:hover .out_back {
+            transform: translateZ(-200px) rotateY(180deg);
+        }
+
+        .cube:hover .out_left {
+            transform: rotateY(-90deg) translateZ(200px);
+        }
+
+        .cube:hover .out_right {
+            transform: rotateY(90deg) translateZ(200px);
+        }
+
+        .cube:hover .out_top {
+            transform: rotateX(90deg) translateZ(200px);
+        }
+
+        .cube:hover .out_bottom {
+            transform: rotateX(-90deg) translateZ(200px);
+        }
+    </style>
+<!--    <link rel="stylesheet" href="../static/lib/picture/css/jkresponsivegallery.css" th:href="@{/lib/picture/css/jkresponsivegallery.css}">-->
+</head>
+<body>
+<div class="banter-loader">
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+    <div class="banter-loader__box"></div>
+</div>
+<!--导航-->
+<nav class="gird-header" >
+    <div class=".m-container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal olive header item" style="font-family: STSong">云烟杂货铺子</h2>
+            <!--<div class="right m-item item m-mobile-hide">-->
+            <a href="#" th:href="@{/}" class=" m-item item m-mobile-hide "><i class="home icon"></i>博客首页</a>
+            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide"><i class="clone outline icon"></i>博文分类</a>
+            <a href="#" th:href="@{/archives}" class=" m-item item m-mobile-hide"><i class="coffee icon"></i>流年记の</a>
+            <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide"><i class="music icon"></i>音乐盒の</a>
+            <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板の</a>
+            <a href="#" th:href="@{/friends}" class=" m-item item m-mobile-hide"><i class="pencil alternate icon"></i>友人帐の</a>
+            <a href="#" th:href="@{/picture}" class="active  m-item item m-mobile-hide"><i class="image icon"></i>照片墙の</a>
+            <a href="#" th:href="@{/resources}" class="m-item item m-mobile-hide"><i class="graduation cap icon"></i>资源库の</a>
+            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我の</a>
+            <!--</div>-->
+            <div class="right black m-item item m-mobile-hide">
+                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                    <div class="ui icon black  input m-margin-tb-tiny " style="color: black">
+                        <input style="color: black"   type="text" name="query" placeholder="Search...." th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<audio autoplay="autoplay" controls="controls" loop="loop" preload="auto" style="display: none"
+       src="../static/music/See%20You%20Again.mp3" th:src="@{/music/See%20You%20Again.mp3}">
+</audio>
+<!--顶部图片-->
+<div class="m-bg-type_outer" style="width: 100%;height: 50%">
+    <img src="../static/images/picturebg.jpg" th:src="@{http://images.newstar.net.cn/img/picture.jpg}" alt="" class="ui m-bg image" style="width: 100%;height: 100%">
+    <div class="m-bg-class_cover">
+        <div class="ui container" style="position: relative ;bottom: -540px;">
+            <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">照片墙</div>
+            <div class="m-font-size-text-init-title m-margin-top" align="center">愿你走出半生，归来仍是少年</div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<div class="wrap" style="height: 200px;width:auto;background: whitesmoke">
+    <h2 class="ui olive teal header item" style="font-family: STSong;display: flex; /**/
+            justify-content: center; /*水平居中*/
+            align-items: Center; /*垂直居中*/">魔方4D照片墙</h2>
+    <!--部署内外层图片-->
+    <div class="cube">
+        <!--前面图片 -->
+        <div class="out_front">
+            <img src="https://pic3.zhimg.com/v2-2c1c8d02d36360ecdc619b72f18b905e_b.jpg" class="pic">
+        </div>
+        <!--后面图片 -->
+        <div class="out_back">
+            <img src="http://localhost:8080/images/xingkongbj.jpg" class="pic">
+        </div>
+        <!--左面图片 -->
+        <div class="out_left">
+            <img src="https://picx.zhimg.com/80/v2-479a753c747307bd93ad989bee373147_720w.webp?source=1940ef5c" class="pic">
+        </div>
+        <!--右面图片 -->
+        <div class="out_right">
+            <img src="https://pic3.zhimg.com/v2-add2d93a31a3444ad7899136c4054db2_b.jpg" class="pic">
+        </div>
+        <!--上面图片 -->
+        <div class="out_top">
+            <img src="https://pic3.zhimg.com/v2-443d2c16026da4a40f6c032246ee85da_b.jpg" class="pic">
+        </div>
+        <!--下面图片 -->
+        <div class="out_bottom">
+            <img src="https://pic1.zhimg.com/v2-14aa965b2a9233524836428051da07c0_b.jpg" class="pic">
+        </div>
+
+        <!--小正方体 -->
+        <span class="in_front">
+                <img src="https://i.loli.net/2018/10/07/5bb9b2e441d7a.jpg" class="in_pic">
+            </span>
+        <span class="in_back">
+                 <img src="https://i.loli.net/2018/10/07/5bb9b2e712b3f.jpg" class="in_pic">
+            </span>
+        <span class="in_left">
+                <img src="https://i.loli.net/2018/10/07/5bb9b2e86ad25.jpg" class="in_pic">
+            </span>
+        <span class="in_right">
+                <img src="https://thumbnail1.baidupcs.com/thumbnail/a74fff4a9j2b1bb6f43835a85af0a240?fid=2292524102-250528-606441447371131&time=1681308000&rt=yt&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-5e3EQxn4dULma6Hkso6%2BWMm5C7E%3D&expires=24h&chkv=0&chkbd=0&chkpc=&dp-logid=341028432&dp-callid=0&size=c1536_u864&quality=90&vuk=-&ft=video&autopolicy=1" class="in_pic">
+            </span>
+        <span class="in_top">
+                <img src="http://localhost:8080/images/xingkongbj.jpg" class="in_pic">
+            </span>
+        <span class="in_bottom">
+                <img src="https://pic1.zhimg.com/v2-2332d55fdcdb250981d3fb5e25b6abd8_b.jpg" class="in_pic">
+            </span>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+<!--照片墙-->
+<div id="picture-main">
+
+    <article class="thumb" th:each="picture : ${pictures}">
+        <div class="ma5-gallery">
+            <div class="rthumbnail">
+                <a href="../static/images/backimg1.jpg" th:href="@{${picture.pictureaddress}}">
+                    <img class="picture-zmki_px" src="../static/images/backimg1.jpg" th:src="@{${picture.pictureaddress}}">
+
+
+                </a>
+                <div class="m-picture-text" th:text="${picture.picturename}">起风了</div>
+                <div  class="rcaption">
+                    <div style="font-size: large;" th:text="${picture.picturename}">起风了</div>
+                    <div style="font-size: 16px" class="m-margin-top" th:text="${picture.picturetime}">2020-02-02 &nbsp;深圳</div>
+                    <p style="font-size: 16px" th:text="${picture.picturedescription}">我曾难自拔于世界之大，也沉迷于其中梦话</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+</div>
+
+
+
+<!--置顶图标-->
+<div id="toolbar" class="m-padded-tb-large m-fixed m-right-bottom">
+    <a href="#" class="ui center aligned basic segment icon"><i class="ui medium teal chevron up icon"></i> </a>
+</div>
+
+<!--底部栏-->
+<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
+    <!--容器-->
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="four wide column">
+
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top" >南城余的杂货铺子</div><br>
+                        <img src="../static/images/touxiang.jpg" th:src="@{/images/touxiang.jpg}"  class="ui rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+            <div class="four wide column" >
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <!--微信公众号二维码-->
+                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top" >个人公众号</div>
+                        <img src="../static/images/wxgzh.jpg" th:src="@{/images/wxgzh.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="four wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <!--微信个人二维码-->
+                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced m-margin-top" >个人微信号</div>
+                        <img src="../static/images/wx.jpg" th:src="@{/images/wx.jpg}"  class="ui m-margin-top rounded image" alt="" style="width: 110px">
+                    </div>
+                </div>
+            </div>
+
+            <!--博客运行时间统计-->
+            <div class="four wide column">
+                <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top m-opacity-tiny">客栈信息</div>
+                <!--<p id="htmer_time" class="item m-text-thin"></p>-->
+                <div id="blog-message">
+                    <div class="ui inverted link list" style="align-content: center;margin-top: 10px" th:fragment="blogMessage">
+                        <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top ">
+                            文章总数： <h2 class="ui orange header  teal m-inline-block m-margin-top-null m-opacity-tiny" style="font-size:medium;" th:text="${blogTotal}"> 14 </h2> 篇
+                        </div>
+                        <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top ">
+                            访问总数： <h2 class="ui orange header  teal m-inline-block m-margin-top-null m-opacity-tiny" style="font-size:medium;" th:text="${blogViewTotal}"> 14 </h2> 次
+                        </div>
+                        <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top">
+                            评论总数： <h2 class="ui orange header teal m-inline-block m-margin-top-null m-opacity-tiny" style="font-size:medium;" th:text="${blogCommentTotal}"> 14 </h2> 条
+                        </div>
+                        <div style="font-size: large;font-weight: bold" class="ui inverted  m-text-thin m-text-spaced m-margin-top ">
+                            留言总数： <h2 class="ui orange header teal m-inline-block m-margin-top-null m-opacity-tiny" style="font-size:medium;" th:text="${blogMessageTotal}"> 14 </h2> 条
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2022 - 2023  Designed by 云烟今天也有杂货铺子</p>
+        <div style="color:cadetblue;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的客栈已营业：<span id="htmer_time" class="item m-text-thin"></span> (*๓´╰╯`๓)</div>
+    </div>
+    </div>
+    </div>
+
+</footer>
+
+<script src="../static/lib/jquery-3.2.1/jquery-3.2.1.min.js" th:src="@{/lib/jquery-3.2.1/jquery-3.2.1.min.js}"></script>
+<script src="../static/lib/semantic/dist/semantic.min.js" th:src="@{/lib/semantic/dist/semantic.min.js}"></script>
+<script src="../static/lib/picture/js/jquery.min.js" th:src="@{/lib/picture/js/jquery.min.js}"></script>
+<script src="../static/lib/picture/js/jkresponsivegallery.js" th:src="@{/lib/picture/js/jkresponsivegallery.js}"></script>
+
+
+<script>
+    document.onreadystatechange=function(){
+        console.log(document.readyState)
+    }
+    // 获取动画
+    let loader = document.querySelector(".banter-loader");
+    // 加载完成事件
+    window.onload = function () {
+        // 加载完成，隐藏动画，显示内容
+        loader.style.display = "none";
+    }
+    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+
+    $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
+    // 运行时间统计
+    function secondToDate(second) {
+        if (!second) {
+            return 0;
+        }
+        var time = new Array(0, 0, 0, 0, 0);
+        if (second >= 365 * 24 * 3600) {
+            time[0] = parseInt(second / (365 * 24 * 3600));
+            second %= 365 * 24 * 3600;
+        }
+        if (second >= 24 * 3600) {
+            time[1] = parseInt(second / (24 * 3600));
+            second %= 24 * 3600;
+        }
+        if (second >= 3600) {
+            time[2] = parseInt(second / 3600);
+            second %= 3600;
+        }
+        if (second >= 60) {
+            time[3] = parseInt(second / 60);
+            second %= 60;
+        }
+        if (second > 0) {
+            time[4] = second;
+        }
+        return time;
+    }
+    function setTime() {
+        /*此处为网站的创建时间*/
+        var create_time = Math.round(new Date(Date.UTC(2022, 12, 25, 15, 15, 15)).getTime() / 1000);
+        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+        currentTime = secondToDate((timestamp - create_time));
+        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
+            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
+            + '秒';
+        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+    }
+    setInterval(setTime, 1000);
+
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-show');
+
+    });
+
+  </script>
+</body>
+</html>
